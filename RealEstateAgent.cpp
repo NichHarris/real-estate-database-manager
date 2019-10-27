@@ -17,7 +17,7 @@ RealEstateAgent::~RealEstateAgent() {
 }
 
 void RealEstateAgent::print() const {
-	std::cout << "Agent info:" << std::endl;
+	std::cout << "\nAgent info:" << std::endl;
 	Person::print();
 	std::cout << "Employment Date: ";
 	employment_date.print();
