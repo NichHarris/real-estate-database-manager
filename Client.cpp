@@ -1,3 +1,9 @@
+// Nicholas Harris - 40111093
+// harris.nicholas1998@gmail.com
+
+// Vejay Tham. - 40112236
+// V-jayy21@hotmail.com
+
 #include<stdint.h>
 #include<string>
 #include"Client.h"

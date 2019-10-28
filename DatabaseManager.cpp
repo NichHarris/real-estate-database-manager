@@ -1,5 +1,8 @@
-// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Nicholas Harris - 40111093
+// harris.nicholas1998@gmail.com
+
+// Vejay Tham. - 40112236
+// V-jayy21@hotmail.com
 
 #include <iostream>
 #include"Client.h"
