@@ -19,9 +19,9 @@ void Date::print() const{
 
 
 void Date::setDate(int m, int d, int y) {
-	month = m;
-	day = d;
-	year = y;
+	month = (m > 0 && m <= 12 ? m : 0);
+	day = (d > 0 && d <= 30 ? d : 0);
+	year = (y > 0 ? y : 0);
 }
 
 void Date::setMonth(int m) {

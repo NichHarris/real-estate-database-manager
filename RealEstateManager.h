@@ -19,10 +19,10 @@ public:
 	RealEstateManager();
 	~RealEstateManager();
 	bool insertAgent(RealEstateAgent&);
-	bool insertProperty(Property&);
+	bool insertProperty(Property*);
 
 	bool propertySold(Property&, Client&);
 
 	void findHousesCity(std::string);
-	void findPropertiesAgent(const RealEstateAgent&);
+	void findPropertiesAgent(RealEstateAgent&);
 };

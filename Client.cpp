@@ -10,6 +10,9 @@ Client::Client(std::string n, std::string adr, std::string sin) : Person(){
 	socialinsurancenumber = sin;
 }
 
+Client::Client(const Client& client) {
+	socialinsurancenumber = client.socialinsurancenumber;
+}
 Client::~Client() {
 	std::cout << "Client destructor called" << std::endl;
 }

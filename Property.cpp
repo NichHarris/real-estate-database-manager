@@ -6,7 +6,7 @@ Property::Property() {
 	street_address = " ";
 	cityname = " ";
 	seller = new Client;
-	buyer = nullptr;
+	buyer = new Client;
 	agent = new RealEstateAgent;
 	listingdate.setDate(0, 0, 0);
 }
@@ -17,6 +17,7 @@ Property::Property(std::string adr, std::string city, Client* c1, RealEstateAgen
 	seller = new Client;
 	agent = new RealEstateAgent;
 	*seller = *c1;
+	buyer = new Client;
 	buyer = nullptr;
 	*agent = *r_agent;
 	listingdate = listDate;
@@ -95,8 +96,8 @@ Client Property::getBuyer() const {
 	return *buyer;
 }
 
-RealEstateAgent Property::getAgent() const {
-	return *agent;
+RealEstateAgent* Property::getAgent() const {
+	return agent;
 }
 
 Date Property::getlistdate() const {

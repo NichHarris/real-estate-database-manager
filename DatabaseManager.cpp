@@ -12,7 +12,7 @@
 int main()
 {
 	// Creating an agent
-	std::cout << "Creating an agent using RealEstateAgent class" << std::endl;
+	std::cout << "----- Creating an agent using RealEstateAgent class -----" << std::endl;
 
 	RealEstateAgent* r1;
 	r1 = new RealEstateAgent;
@@ -25,7 +25,7 @@ int main()
 	r1->print();
 
 	// Creating a person
-	std::cout << "Creating a person using Person class" << std::endl;
+	std::cout << "----- Creating a person using Person class -----" << std::endl;
 
 	Person* p1;
 	p1 = new Person;
@@ -35,7 +35,7 @@ int main()
 	std::cout<<std::endl;
 
 	// Creating a client
-	std::cout << "Creating a client using Client class" << std::endl;
+	std::cout << "----- Creating a client using Client class -----" << std::endl;
 
 	Client* c1;
 	c1 = new Client;
@@ -46,7 +46,7 @@ int main()
 	std::cout << std::endl;
 
 	// Creating client using Person
-	std::cout << "Creating a client using Person class" << std::endl;
+	std::cout << "----- Creating a client using Person class -----" << std::endl;
 	
 	Client* c2;
 	c2 = new Client;
@@ -68,18 +68,19 @@ int main()
 	// Realestate agent 2
 	std::cout << "Agent 2 using Person 2" << std::endl;
 
-	Date date2(5, 26, 2014);
+
 	RealEstateAgent* r2;
+	Date hiredate2(5, 26, 2014);
 	r2 = new RealEstateAgent;
 	r2->setName(p2->getName());
 	r2->setAddress(p2->getAddress());
-	r2->setDate(date2);
+	r2->setHireDate(hiredate2);
 	r2->setID(1738);
 	r2->print();
 	std::cout << std::endl;
 
 	// Creating Properties using Property class
-	std::cout << "Creating properties using Property class" << std::endl << std::endl;
+	std::cout << "----- Creating properties using Property class -----" << std::endl << std::endl;
 
 	Property* prop1;
 	prop1 = new Property;
@@ -118,7 +119,7 @@ int main()
 	prop3->setlistdate(list_date3);
 
 	// Creating land for sale using LandSale class
-	std::cout << "Creating land for sale using LandSale class using property3" << std::endl;
+	std::cout << "----- Creating land for sale using LandSale class using property3 -----" << std::endl;
 
 	LandSale land1;
 	land1.setAddress(prop3->getAddress());
@@ -132,7 +133,7 @@ int main()
 	std::cout << std::endl;
 	
 	// Creating house for sale using HouseSale class
-	std::cout << "Creating house for sale using HouseSale class and property2" << std::endl;
+	std::cout << "----- Creating house for sale using HouseSale class and property2 -----" << std::endl;
 	HouseSale house1;
 
 	house1.setAddress(prop2->getAddress());
@@ -147,7 +148,7 @@ int main()
 	std::cout << std::endl;
 
 	// Creating an apartment using ApartmentSale class
-	std::cout << "Creating an apartment using ApartmentSale class and property1" << std::endl;
+	std::cout << "----- Creating an apartment using ApartmentSale class and property1 -----" << std::endl;
 
 	ApartmentSale apart1;
 	apart1.setAddress(prop1->getAddress());
@@ -167,7 +168,7 @@ int main()
 
 	//Testing boolinsertAgent
 
-	std::cout << "Adding r1 and r2 to agentRecordsArray using insertAgent function" << std::endl;
+	std::cout << "----- Adding r1 and r2 to agentRecordsArray using insertAgent function -----" << std::endl;
 	
 	RealEstateManager manager;
 
@@ -178,10 +179,10 @@ int main()
 		std::cout << "Agent: " << r2->getName() << " succesfully added." << std::endl;
 	}
 	
-	std::cout << "\nTesting adding same agent twice.\n";
+	std::cout << "\n----- Testing adding same agent twice -----\n";
 	manager.insertAgent(*r1);
 
-	std::cout << "\nTesting adding too many agents (using empty agents)\n";
+	std::cout << "\n----- Testing adding too many agents (using empty agents) -----\n";
 	RealEstateAgent* agents = new RealEstateAgent[30];
 	for (int i = 0; i < 30; i++) {
 		if (manager.insertAgent(agents[i])) {
@@ -189,35 +190,49 @@ int main()
 		}
 	}
 
-	// Inserting properties into propertyListingArray
-
-	std::cout << "\nAddding prop1, prop2, and prop3, to propertyListingArray using insertPorperty function\n";
-
-	if (manager.insertProperty(*prop1)) {
+	if (manager.insertProperty(prop1)) {
 		std::cout << "Property at address: " << prop1->getAddress() << " succesfully added to listing.\n";
 	}
-	if (manager.insertProperty(*prop2)) {
+	if (manager.insertProperty(prop2)) {
 		std::cout << "Property at address: " << prop2->getAddress() << " succesfully added to lsiting.\n";
 	}
-	if (manager.insertProperty(*prop3)) {
+	if (manager.insertProperty(prop3)) {
 		std::cout << "Property at address: " << prop3->getAddress() << " succesfully added listing.\n\n";
 	}
+	std::cout << "*----- Testing adding the same property twice -----" << std::endl;
+	manager.insertProperty(prop1);
 
-	std::cout << "Testing adding the same property twice." << std::endl;
-	manager.insertProperty(*prop1);
-
-	std::cout << "Testing adding too many properties" << std::endl;
+	std::cout << "----- Testing adding too many properties -----" << std::endl;
 	Property* properties = new Property[1000];
 
 	for (int i = 0; i < 1000; i++) {
-		manager.insertProperty(properties[i]);
+		manager.insertProperty(&properties[i]);
 	}
 
-	// propertySold function from RealEstateManager class
-
-	std::cout << "Testing propertySold function from RealEstateManager class\n\n";
-
-	manager.propertySold(*prop1, *c1);
-	std::cout << "Buyer of property at address " << prop1->getAddress() << ": ";
+	std::cout << "\n----- Testing propertySold function from RealEstateManager class -----\n";
+	std::cout << "----- Comparing prop1 and archiveRecordsArray after propertySold runs -----" << std::endl;
+	prop1->print();
+	manager.propertySold(*prop1, *c2);
+	std::cout << "\nBuyer of property at address " << prop1->getAddress() << ": " << prop1->getBuyer().getName() << std::endl;
+	std::cout << "\n----- Property 1 updated info: -----" << std::endl;
+	prop1->print();
 	std::cout << std::endl;
+
+	// Using findHousesCity to output all the propertys in a given city.
+
+	std::cout << "\n----- Testing findHousesCity function from RealEstateManager class -----\n\n";
+	std::cout << "Changing prop3 city to 'Westmount' for the test\n";
+	prop3->setCity("Westmount");
+	manager.findHousesCity("Westmount");
+
+	// Using findPropertiesAgent to output all the listings of the given agent
+	// prop1 has Emy Lafond (r1) as agent, but since it has been sold it is on the archiveRecordsArray
+	// and therefore won't show up under findPropertiesAgent for agent r1
+	prop2->setAgent(r1);
+	std::cout << "\n------ Testing findPropertiesAgent function from RealEstateManager class ------\n\n";
+	manager.findPropertiesAgent(*r1);
+	std::cout << std::endl;
+	manager.findPropertiesAgent(*r2);
+
+	std::cout << "\n\n\n";
 }

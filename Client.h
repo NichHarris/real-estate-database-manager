@@ -7,6 +7,7 @@ class Client : public Person {
 public:
 	Client();
 	Client(std::string, std::string, std::string);
+	Client(const Client&);
 	~Client();
 	virtual void print();
 

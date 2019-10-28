@@ -23,7 +23,7 @@ public:
 	std::string getCity() const;
 	Client getSeller() const;
 	Client getBuyer() const;
-	RealEstateAgent getAgent() const;
+	RealEstateAgent* getAgent() const;
 	Date getlistdate() const;
 
 private:

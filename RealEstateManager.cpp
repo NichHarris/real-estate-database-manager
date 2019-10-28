@@ -2,6 +2,9 @@
 #include<string>
 #include"RealEstateManager.h"
 
+class RealEstateAgent;
+class Property;
+
 RealEstateManager::RealEstateManager() {
 	for (int i = 0; i < max_number_of_agents; i++) {
 		agentRecordsArray[i] = new RealEstateAgent;
@@ -32,18 +35,18 @@ bool RealEstateManager::insertAgent(RealEstateAgent& agent) {
 			return 1;
 		}
 	}
-	std::cout << "Unable to add realestate agent, max exceeded" << std::endl;
+	std::cout << "Unable to add real-estate agent, max exceeded" << std::endl;
 	return 0;
 }
 
-bool RealEstateManager::insertProperty(Property& property) {
+bool RealEstateManager::insertProperty(Property* property) {
 	for (int i = 0; i < listingsize; i++) {
-		if (propertyListingArray[i] == &property) {
+		if (propertyListingArray[i] == property) {
 			std::cout << "Property already exists, exiting.\n\n";
 			return 0;
 		}
 		if (propertyListingArray[i] == nullptr) {
-			propertyListingArray[i] = &property;
+			propertyListingArray[i] = property;
 			return 1;
 		}
 	}
@@ -52,11 +55,11 @@ bool RealEstateManager::insertProperty(Property& property) {
 }
 
 bool RealEstateManager::propertySold(Property& sold_property, Client& buyer) {
-	sold_property.setBuyer(&buyer);
+
 	for (int i = 0; i < archivesize; i++) {
 		if (archiveRecordsArray[i] == nullptr) {
 			archiveRecordsArray[i] = &sold_property;
-
+			sold_property.setBuyer(&buyer);
 			for (int j = 0; j < listingsize; j++) {
 				if (propertyListingArray[j] == &sold_property) {
 					propertyListingArray[j] = nullptr;
@@ -64,6 +67,8 @@ bool RealEstateManager::propertySold(Property& sold_property, Client& buyer) {
 					for (int k = j; k < listingsize-1; k++) {
 						propertyListingArray[k] = propertyListingArray[k + 1];
 					}
+					std::cout << "\narchiveRecordsArray: " << std::endl;
+					archiveRecordsArray[i]->print();
 					break;
 				}
 			}
@@ -77,17 +82,25 @@ bool RealEstateManager::propertySold(Property& sold_property, Client& buyer) {
 void RealEstateManager::findHousesCity(std::string cityname) {
 	for (int i = 0; i < listingsize; i++) {
 		if (propertyListingArray[i]->getCity() == cityname) {
+			std::cout << "Listing " << i + 1 << ":" << std::endl;
 			propertyListingArray[i]->print();
+			std::cout << std::endl;
 		}
 	}
 }
 
-/*void RealEstateManager::findPropertiesAgent(const RealEstateAgent& agent) {
-	for (int i = 0; i < listingsize; i++) {
-		if (propertyListingArray[i]->getAgent() == &agent) {
-			propertyListingArray[i]->print();
+void RealEstateManager::findPropertiesAgent(RealEstateAgent& agent) {
+	for (int i = 0; i < max_number_of_agents; i++) {
+		if (agentRecordsArray[i] == &agent) {
+			std::cout << "Agent Name: " << agent.getName() << std::endl;
+			int count = 0;
+			for (int j = 0; j < listingsize; j++) {
+				if (propertyListingArray[j]->getAgent()->getName() == agent.getName()) {
+					std::cout << "\nProperty " << ++count << ":" << std::endl;
+					propertyListingArray[j]->print();
+				}
+			}
 		}
 	}
+	std::cout << "End of property listings for agent " << agent.getName() << std::endl;
 }
-*/
-
