@@ -5,7 +5,6 @@
 // V-jayy21@hotmail.com
 
 #pragma once
-
 #include<iostream>
 #include<string>
 #include"Property.h"
